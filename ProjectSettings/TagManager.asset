@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fluid
   - PlayerEyes
+  - GeneratorParent
   layers:
   - Default
   - TransparentFX
