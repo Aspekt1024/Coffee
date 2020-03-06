@@ -5,11 +5,12 @@ namespace Coffee.HouseGen
 {
     public class WallGeneration
     {
+        public bool IsEnabled { get; private set; }
+        
         private Vector3 wallStart;
         private Vector3 wallEnd;
-
-        private const string WallParentName = "Walls";
-        private const string GeneratedWallParentName = "Generated Walls";
+        
+        private readonly ParentManagement parents;
         
         private enum Directions
         {
@@ -17,21 +18,16 @@ namespace Coffee.HouseGen
             Horizontal,
         }
         
-        private Transform generatedWallParent;
-        private Transform GeneratedWallParent
-        {
-            get
-            {
-                if (generatedWallParent != null) return generatedWallParent;
-                generatedWallParent = ObjectHelpers.FindParent(GeneratedWallParentName);
-                return generatedWallParent;
-            }
-        }
-
-        public bool IsEnabled { get; private set; }
         private bool isDraggingWall;
 
-        public void Toggle() => IsEnabled = !IsEnabled;
+
+        public WallGeneration(ParentManagement parents)
+        {
+            this.parents = parents;
+        }
+        
+        public void Enable() => IsEnabled = true;
+        public void Disable() => IsEnabled = false;
 
         public void OnSceneGUI(SceneView scene, Event e)
         {
@@ -156,8 +152,9 @@ namespace Coffee.HouseGen
                 // Check corners
                 
                 // Check T
-                
-                var wall = (GameObject)PrefabUtility.InstantiatePrefab(wallPrefab, GeneratedWallParent);
+
+                var parent = parents.GetParent(Parents.GeneratedWalls);
+                var wall = (GameObject)PrefabUtility.InstantiatePrefab(wallPrefab, parent);
                 wall.name = "Generated Wall";
                 
                 wall.transform.position = new Vector3(xPos, 0, zPos);
@@ -171,22 +168,20 @@ namespace Coffee.HouseGen
         
         private void CreateWalls()
         {
-            var wallParent = ObjectHelpers.FindParent(WallParentName);
-            var walls = GeneratedWallParent.GetComponentsInChildren<Transform>();
+            var wallParent = parents.GetParent(Parents.Walls);
+            var generatedWallParent = parents.GetParent(Parents.GeneratedWalls);
+            var walls = generatedWallParent.GetComponentsInChildren<Transform>();
             foreach (var wall in walls)
             {
-                if (wall.name == GeneratedWallParentName) continue;
+                if (wall.name == generatedWallParent.name) continue;
                 wall.SetParent(wallParent);
             }
         }
 
         private void DestroyWalls()
         {
-            if (generatedWallParent != null)
-            {
-                Object.DestroyImmediate(generatedWallParent.gameObject);
-                generatedWallParent = null;
-            }
+            // TODO destroy walls individually... maybe keep track of them in a List?
+            Object.DestroyImmediate(parents.GetParent(Parents.GeneratedWalls).gameObject);
         }
     }
 }

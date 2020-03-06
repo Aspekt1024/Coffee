@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -5,18 +6,17 @@ namespace Coffee.HouseGen
 {
     public class HouseEditor : EditorWindow
     {
-        private readonly WallGeneration wallGeneration = new WallGeneration();
+        private ParentManagement parents;
+        private WallGeneration walls;
+        private DoorPlacement doors;
 
-        private const string EditorParentName = "Editor Objects";
-        private Transform editorParent;
-        private Transform EditorParent
+        private HouseEditorGrid houseEditorGrid;
+
+        private enum EditModes
         {
-            get
-            {
-                if (editorParent != null) return editorParent;
-                editorParent = ObjectHelpers.FindParent(EditorParentName);
-                return editorParent;
-            }
+            None,
+            Walls,
+            Door,
         }
 
         [MenuItem("Window/HouseEditor")]
@@ -24,25 +24,59 @@ namespace Coffee.HouseGen
         {
             GetWindow(typeof(HouseEditor));
         }
-
+        
         private void OnGUI()
         {
             titleContent = new GUIContent("House Editor");
-            if (GUILayout.Button(wallGeneration.IsEnabled ? "Cancel Build Wall" : "Build wall"))
+            if (GUILayout.Button(walls.IsEnabled ? "Cancel Build Wall" : "Build Wall"))
             {
-                wallGeneration.Toggle();
+                SetEditMode(walls.IsEnabled ? EditModes.None : EditModes.Walls);
+            }
+            if (GUILayout.Button(doors.IsEnabled ? "Cancel Build Door" : "Build Door"))
+            {
+                SetEditMode(doors.IsEnabled ? EditModes.None : EditModes.Door);
+            }
+
+        }
+
+        private void SetEditMode(EditModes mode)
+        {
+            walls.Disable();
+            doors.Disable();
+            
+            switch (mode)
+            {
+                case EditModes.None:
+                    houseEditorGrid.Disable();
+                    break;
+                case EditModes.Walls:
+                    walls.Enable();
+                    houseEditorGrid.Enable();
+                    break;
+                case EditModes.Door:
+                    doors.Enable();
+                    houseEditorGrid.Enable();
+                    break;
+                default:
+                    Debug.LogError("invalid edit mode: " + mode);
+                    break;
             }
         }
 
-        private void SceneGUI(SceneView sceneView)
+        private void SceneGUI(SceneView scene)
         {
             var e = Event.current;
-            wallGeneration.OnSceneGUI(sceneView, e);
+            walls.OnSceneGUI(scene, e);
+            doors.OnSceneGUI(scene, e);
         }
-        
         
         private void OnEnable()
         {
+            parents = new ParentManagement();
+            walls = new WallGeneration(parents);
+            doors = new DoorPlacement(parents);
+            houseEditorGrid = new HouseEditorGrid(parents);
+            
             SceneView.beforeSceneGui += SceneGUI;
         }
 

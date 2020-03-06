@@ -280,8 +280,10 @@
           </e>
           <e p="HouseGeneration" t="Include">
             <e p="Editor" t="Include">
+              <e p="DoorPlacement.cs" t="Include" />
               <e p="HouseEditor.cs" t="Include" />
-              <e p="ObjectHelpers.cs" t="Include" />
+              <e p="HouseEditorGrid.cs" t="Include" />
+              <e p="ParentManagement.cs" t="Include" />
               <e p="WallGeneration" t="Include">
                 <e p="WallGeneration.cs" t="Include" />
               </e>
