@@ -27,6 +27,8 @@ namespace Coffee.HouseGen
         
         private void OnGUI()
         {
+            CheckKeyPresses(Event.current);
+            
             titleContent = new GUIContent("House Editor");
             if (GUILayout.Button(walls.IsEnabled ? "Cancel Build Wall" : "Build Wall"))
             {
@@ -41,8 +43,7 @@ namespace Coffee.HouseGen
 
         private void SetEditMode(EditModes mode)
         {
-            walls.Disable();
-            doors.Disable();
+            DisableAll();
             
             switch (mode)
             {
@@ -63,11 +64,28 @@ namespace Coffee.HouseGen
             }
         }
 
-        private void SceneGUI(SceneView scene)
+        private void OnSceneGUI(SceneView scene)
         {
             var e = Event.current;
+            CheckKeyPresses(e);
             walls.OnSceneGUI(scene, e);
             doors.OnSceneGUI(scene, e);
+        }
+
+        private void CheckKeyPresses(Event e)
+        {
+            if (e.type == EventType.KeyDown && e.keyCode == KeyCode.Escape)
+            {
+                DisableAll();
+                Repaint();
+            }
+        }
+        
+        private void DisableAll()
+        {
+            walls.Disable();
+            doors.Disable();
+            houseEditorGrid.Disable();
         }
         
         private void OnEnable()
@@ -77,12 +95,12 @@ namespace Coffee.HouseGen
             doors = new DoorPlacement(parents);
             houseEditorGrid = new HouseEditorGrid(parents);
             
-            SceneView.beforeSceneGui += SceneGUI;
+            SceneView.beforeSceneGui += OnSceneGUI;
         }
 
         private void OnDisable()
         {
-            SceneView.beforeSceneGui -= SceneGUI;
+            SceneView.beforeSceneGui -= OnSceneGUI;
         }
         
     }

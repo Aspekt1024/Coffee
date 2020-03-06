@@ -27,7 +27,14 @@ namespace Coffee.HouseGen
         }
         
         public void Enable() => IsEnabled = true;
-        public void Disable() => IsEnabled = false;
+
+        public void Disable()
+        {
+            if (!IsEnabled) return;
+            IsEnabled = false;   
+            DestroyWalls();
+            isDraggingWall = false;
+        }
 
         public void OnSceneGUI(SceneView scene, Event e)
         {
@@ -54,19 +61,12 @@ namespace Coffee.HouseGen
                         e.Use();
                     }
                     break;
-                case EventType.KeyDown:
-                    if (e.keyCode == KeyCode.Escape)
-                    {
-                        Cancel();
-                        e.Use();
-                    }
-                    break;
             }
         }
 
         private void StartDragging(SceneView scene, Vector2 mousePosition)
         {
-            wallStart = GetWorldPointFromMouse(scene, mousePosition);
+            wallStart = CursorUtility.GetWorldPointFromMouse(scene, mousePosition);
             isDraggingWall = true;
         }
 
@@ -76,47 +76,14 @@ namespace Coffee.HouseGen
             isDraggingWall = false;
         }
 
-        private void Cancel()
-        {
-            DestroyWalls();
-            isDraggingWall = false;
-        }
-
         private void HandleDrag(SceneView scene, Vector2 mousePosition)
         {
-            var newWallEnd = GetWorldPointFromMouse(scene, mousePosition);
+            var newWallEnd = CursorUtility.GetWorldPointFromMouse(scene, mousePosition);
             if (newWallEnd == wallEnd) return;
             wallEnd = newWallEnd;
             RecalculateWalls();
         }
         
-        private static Vector3 GetWorldPointFromMouse(SceneView scene, Vector2 mousepos)
-        {
-            // Convert to screen point
-            var point = new Vector2(
-                mousepos.x * EditorGUIUtility.pixelsPerPoint,
-                scene.camera.pixelHeight - mousepos.y * EditorGUIUtility.pixelsPerPoint
-            );
-            
-            // Convert to world point
-            var plane = new Plane(Vector3.up, Vector3.zero);
-            var ray = scene.camera.ScreenPointToRay(point);
-            if (!plane.Raycast(ray, out float startDist))
-            {
-                Debug.LogWarning("Failed to hit plane");
-                return Vector3.zero;
-            }
-            var pos = ray.GetPoint(startDist);
-            
-            // Snap to grid
-            pos.x = Mathf.Round(pos.x);
-            pos.z = Mathf.Round(pos.z);
-            
-            return pos;
-        }
-        
-        
-
         private void RecalculateWalls()
         {
             var xDiff = Mathf.Abs(wallEnd.x - wallStart.x);
