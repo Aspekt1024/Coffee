@@ -22,11 +22,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3306574258493615377}
-  - component: {fileID: 3306574258493615391}
+  - component: {fileID: 7712929177715679954}
   - component: {fileID: 3306574258493615376}
   - component: {fileID: 4456238156887900024}
   m_Layer: 9
-  m_Name: Door
+  m_Name: ExitDoor
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3306574258493615391
+--- !u!114 &7712929177715679954
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,7 +56,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3306574258493615378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd3e67be560a36d4789cb7c100d1423c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e52c50de10748f79d691df7476237c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!95 &3306574258493615376

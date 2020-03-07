@@ -5,12 +5,20 @@ namespace Coffee.HouseGen
 {
     public class DoorPlacement
     {
+        public enum Modes
+        {
+            NormalDoor,
+            ExitDoor,
+        }
+        
         private const string DoorPrefabPath = "Assets/Prefabs/Infrastructure/Doors/Door.prefab";
+        private const string ExitDoorPrefabPath = "Assets/Prefabs/Infrastructure/Doors/ExitDoor.prefab";
         
         public bool IsEnabled { get; private set; }
         
         private readonly HouseEditor editor;
 
+        private Modes mode;
         private Transform door;
         private GameObject replacedWall;
         
@@ -19,8 +27,9 @@ namespace Coffee.HouseGen
             this.editor = editor;
         }
 
-        public void Enable()
+        public void Enable(Modes editMode)
         {
+            mode = editMode;
             IsEnabled = true;
             CreateDoor();
         }
@@ -71,10 +80,12 @@ namespace Coffee.HouseGen
 
         private void CreateDoor()
         {
-            var doorPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(DoorPrefabPath);
+            var prefabPath = mode == Modes.NormalDoor ? DoorPrefabPath : ExitDoorPrefabPath;
+            
+            var doorPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
             if (doorPrefab == null)
             {
-                Debug.LogError("Door prefab missing: " + DoorPrefabPath);
+                Debug.LogError("Door prefab missing: " + prefabPath);
                 return;
             }
             

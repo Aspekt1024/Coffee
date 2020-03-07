@@ -26,6 +26,7 @@ namespace Coffee.HouseGen
             None,
             Walls,
             Door,
+            ExitDoor,
         }
 
         [MenuItem("Window/HouseEditor")]
@@ -39,13 +40,17 @@ namespace Coffee.HouseGen
             CheckKeyPresses(Event.current);
             
             titleContent = new GUIContent("House Editor");
-            if (GUILayout.Button(walls.IsEnabled ? "Cancel Build Wall" : "Build Wall"))
+            if (GUILayout.Button(walls.IsEnabled ? "Stop Building Walls" : "Build Walls"))
             {
                 SetEditMode(walls.IsEnabled ? EditModes.None : EditModes.Walls);
             }
-            if (GUILayout.Button(doors.IsEnabled ? "Cancel Build Door" : "Build Door"))
+            if (GUILayout.Button(doors.IsEnabled ? "Stop Building Doors" : "Build Doors"))
             {
                 SetEditMode(doors.IsEnabled ? EditModes.None : EditModes.Door);
+            }
+            if (GUILayout.Button(doors.IsEnabled ? "Stop Building Exit Doors" : "Build Exit Doors"))
+            {
+                SetEditMode(doors.IsEnabled ? EditModes.None : EditModes.ExitDoor);
             }
 
         }
@@ -64,7 +69,11 @@ namespace Coffee.HouseGen
                     houseEditorGrid.Enable();
                     break;
                 case EditModes.Door:
-                    doors.Enable();
+                    doors.Enable(DoorPlacement.Modes.NormalDoor);
+                    houseEditorGrid.Enable();
+                    break;
+                case EditModes.ExitDoor:
+                    doors.Enable(DoorPlacement.Modes.ExitDoor);
                     houseEditorGrid.Enable();
                     break;
                 default:
