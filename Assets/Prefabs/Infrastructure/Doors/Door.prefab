@@ -178,6 +178,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Doorway
       objectReference: {fileID: 0}
+    - target: {fileID: 8503735034839750429, guid: 6aed18002d3c03c47b1993a41b79fd1a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 33d380e6d815151438b146af732b964c, type: 2}
+    - target: {fileID: 8503735034839750429, guid: 6aed18002d3c03c47b1993a41b79fd1a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 33d380e6d815151438b146af732b964c, type: 2}
     - target: {fileID: 8940632808050562651, guid: 6aed18002d3c03c47b1993a41b79fd1a,
         type: 3}
       propertyPath: m_LocalRotation.x

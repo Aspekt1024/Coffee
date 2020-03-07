@@ -5,6 +5,8 @@ namespace Coffee.HouseGen
 {
     public class HouseEditorGrid
     {
+        private const string GridPrefabPath = "Assets/Prefabs/Editor/Grid_20x20.prefab";
+        
         private readonly HouseEditor editor;
 
         private GameObject grid;
@@ -32,7 +34,7 @@ namespace Coffee.HouseGen
         private void CreateGrid()
         {
             Object.DestroyImmediate(editor.Parents.GetParent(Parents.Grid).gameObject);
-            var gridPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Editor/Grid_20x20.prefab");
+            var gridPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(GridPrefabPath);
             var gridParent = editor.Parents.GetParent(Parents.Grid);
             grid = (GameObject)PrefabUtility.InstantiatePrefab(gridPrefab, gridParent);
             
