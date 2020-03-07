@@ -289,6 +289,7 @@
               <e p="PositionUtility.cs" t="Include" />
               <e p="WallGeneration" t="Include">
                 <e p="WallGeneration.cs" t="Include" />
+                <e p="WallResolver.cs" t="Include" />
               </e>
             </e>
           </e>

@@ -49,6 +49,20 @@ namespace Coffee.HouseGen
             transformDict[parent] = tf;
             return tf;
         }
+
+        public List<Transform> GetChildren(Parents parent)
+        {
+            var parentTf = GetParent(parent);
+            var children = new List<Transform>();
+            foreach (Transform tf in parentTf)
+            {
+                if (tf.parent == parentTf)
+                {
+                    children.Add(tf);
+                }
+            }
+            return children;
+        }
         
         private static Transform FindParent(string parentPath)
         {

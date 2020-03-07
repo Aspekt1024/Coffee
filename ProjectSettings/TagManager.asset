@@ -8,6 +8,7 @@ TagManager:
   - PlayerEyes
   - GeneratorParent
   - Wall
+  - CornerWall
   layers:
   - Default
   - TransparentFX
