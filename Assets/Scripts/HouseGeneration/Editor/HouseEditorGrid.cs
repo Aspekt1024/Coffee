@@ -5,13 +5,13 @@ namespace Coffee.HouseGen
 {
     public class HouseEditorGrid
     {
-        private readonly ParentManagement parents;
+        private readonly HouseEditor editor;
 
         private GameObject grid;
         
-        public HouseEditorGrid(ParentManagement parents)
+        public HouseEditorGrid(HouseEditor editor)
         {
-            this.parents = parents;
+            this.editor = editor;
         }
 
         public void Enable()
@@ -31,9 +31,9 @@ namespace Coffee.HouseGen
 
         private void CreateGrid()
         {
-            Object.DestroyImmediate(parents.GetParent(Parents.Grid).gameObject);
+            Object.DestroyImmediate(editor.Parents.GetParent(Parents.Grid).gameObject);
             var gridPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Editor/Grid_20x20.prefab");
-            var gridParent = parents.GetParent(Parents.Grid);
+            var gridParent = editor.Parents.GetParent(Parents.Grid);
             grid = (GameObject)PrefabUtility.InstantiatePrefab(gridPrefab, gridParent);
             
             // TODO position at center of screen

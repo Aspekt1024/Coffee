@@ -4,9 +4,18 @@ using UnityEngine;
 
 namespace Coffee.HouseGen
 {
+    public enum Directions
+    {
+        Vertical,
+        Horizontal,
+    }
+    
     public class HouseEditor : EditorWindow
     {
-        private ParentManagement parents;
+        public const float TileSize = 1f;
+        
+        public ParentManagement Parents { get; private set; }
+        
         private WallGeneration walls;
         private DoorPlacement doors;
 
@@ -90,10 +99,10 @@ namespace Coffee.HouseGen
         
         private void OnEnable()
         {
-            parents = new ParentManagement();
-            walls = new WallGeneration(parents);
-            doors = new DoorPlacement(parents);
-            houseEditorGrid = new HouseEditorGrid(parents);
+            Parents = new ParentManagement();
+            walls = new WallGeneration(this);
+            doors = new DoorPlacement(this);
+            houseEditorGrid = new HouseEditorGrid(this);
             
             SceneView.beforeSceneGui += OnSceneGUI;
         }

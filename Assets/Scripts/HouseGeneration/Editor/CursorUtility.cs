@@ -5,7 +5,16 @@ namespace Coffee.HouseGen
 {
     public static class CursorUtility
     {
-        public static Vector3 GetWorldPointFromMouse(SceneView scene, Vector2 mousepos)
+        public struct Result
+        {
+            public bool IsSuccess;
+            public Vector3 RawPosition;
+            public Directions Direction;
+            public Vector3 GridCornerPosition;
+            public Vector3 GridEdgePosition;
+        }
+        
+        public static Result GetWorldPointFromMouse(SceneView scene, Vector2 mousepos)
         {
             // Convert to screen point
             var point = new Vector2(
@@ -18,17 +27,37 @@ namespace Coffee.HouseGen
             var ray = scene.camera.ScreenPointToRay(point);
             if (!plane.Raycast(ray, out float startDist))
             {
-                // TODO return null value?
-                return Vector3.zero;
+                return new Result()
+                {
+                    IsSuccess = false,
+                };
             }
             var pos = ray.GetPoint(startDist);
+            pos.y = 0f;
             
-            // Snap to grid
-            pos.x = Mathf.Round(pos.x);
-            pos.z = Mathf.Round(pos.z);
+            var cornerPos = pos;
+            cornerPos.x = Mathf.Round(pos.x);
+            cornerPos.z = Mathf.Round(pos.z);
             
-            return pos;
+            var xDiff = Mathf.Abs(pos.x - cornerPos.x);
+            var zDiff = Mathf.Abs(pos.z - cornerPos.z);
+            var direction = xDiff > zDiff ? Directions.Horizontal : Directions.Vertical;
+
+            var edgePos = pos;
+            edgePos.x = Mathf.Round(pos.x - (direction == Directions.Horizontal ? 0.5f : 0f));
+            edgePos.z = Mathf.Round(pos.z - (direction == Directions.Vertical ? 0.5f : 0f));
+            
+            
+            return new Result()
+            {
+                IsSuccess = true,
+                RawPosition = pos,
+                Direction = direction,
+                GridCornerPosition = cornerPos,
+                GridEdgePosition = edgePos,
+            };
         }
+        
 
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -5,25 +6,21 @@ namespace Coffee.HouseGen
 {
     public class WallGeneration
     {
+        private const string WallPrefabPath = "Assets/Prefabs/Infrastructure/Walls/SingleWall.prefab";
+        
         public bool IsEnabled { get; private set; }
+        
+        private readonly HouseEditor editor;
         
         private Vector3 wallStart;
         private Vector3 wallEnd;
-        
-        private readonly ParentManagement parents;
-        
-        private enum Directions
-        {
-            Vertical,
-            Horizontal,
-        }
-        
         private bool isDraggingWall;
+        
+        private readonly List<Transform> walls = new List<Transform>();
 
-
-        public WallGeneration(ParentManagement parents)
+        public WallGeneration(HouseEditor editor)
         {
-            this.parents = parents;
+            this.editor = editor;
         }
         
         public void Enable() => IsEnabled = true;
@@ -66,21 +63,25 @@ namespace Coffee.HouseGen
 
         private void StartDragging(SceneView scene, Vector2 mousePosition)
         {
-            wallStart = CursorUtility.GetWorldPointFromMouse(scene, mousePosition);
+            var result = CursorUtility.GetWorldPointFromMouse(scene, mousePosition);
+            if (!result.IsSuccess) return;
+            wallStart = result.GridCornerPosition;
             isDraggingWall = true;
         }
 
         private void StopDragging()
         {
+            if (!isDraggingWall) return;
             CreateWalls();
             isDraggingWall = false;
         }
 
         private void HandleDrag(SceneView scene, Vector2 mousePosition)
         {
-            var newWallEnd = CursorUtility.GetWorldPointFromMouse(scene, mousePosition);
-            if (newWallEnd == wallEnd) return;
-            wallEnd = newWallEnd;
+            var result = CursorUtility.GetWorldPointFromMouse(scene, mousePosition);
+            if (!result.IsSuccess || result.GridCornerPosition == wallEnd) return;
+            
+            wallEnd = result.GridCornerPosition;
             RecalculateWalls();
         }
         
@@ -101,7 +102,13 @@ namespace Coffee.HouseGen
             }
             
             DestroyWalls();
-            var wallPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Walls/SingleWall.prefab");
+            var wallPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(WallPrefabPath);
+            if (wallPrefab == null)
+            {
+                Debug.LogError("Wall prefab missing: " + WallPrefabPath);
+                return;
+            }
+            
             for (var p = startP; p < endP; p++)
             {
                 var xPos = direction == Directions.Horizontal ? p : wallStart.x;
@@ -113,42 +120,49 @@ namespace Coffee.HouseGen
                     0f,
                     zPos + (direction == Directions.Vertical ? 0.5f : 0f));
                 
-                var layers = 1 << LayerMask.NameToLayer("Wall");
+                var layers = LayerDefinitions.GetLayerMask(new[] {Layers.Interactible, Layers.Wall});
                 if (Physics.CheckSphere(checkPos, 0.1f, layers)) continue;
                 
                 // Check corners
                 
                 // Check T
 
-                var parent = parents.GetParent(Parents.GeneratedWalls);
+                var parent = editor.Parents.GetParent(Parents.GeneratedWalls);
                 var wall = (GameObject)PrefabUtility.InstantiatePrefab(wallPrefab, parent);
+                wall.GetComponent<Collider>().enabled = false;
                 wall.name = "Generated Wall";
                 
                 wall.transform.position = new Vector3(xPos, 0, zPos);
                 
                 if (direction == Directions.Vertical)
                 {
-                    wall.transform.Rotate(Vector3.back, 90f);
+                    wall.transform.eulerAngles = new Vector3(0f, -90f, 0f);
                 }
+                
+                walls.Add(wall.transform);
             }
         }
         
         private void CreateWalls()
         {
-            var wallParent = parents.GetParent(Parents.Walls);
-            var generatedWallParent = parents.GetParent(Parents.GeneratedWalls);
-            var walls = generatedWallParent.GetComponentsInChildren<Transform>();
+            var wallParent = editor.Parents.GetParent(Parents.Walls);
+            var generatedWallParent = editor.Parents.GetParent(Parents.GeneratedWalls);
             foreach (var wall in walls)
             {
                 if (wall.name == generatedWallParent.name) continue;
                 wall.SetParent(wallParent);
+                wall.GetComponent<Collider>().enabled = true;
             }
+            walls.Clear();
         }
 
         private void DestroyWalls()
         {
-            // TODO destroy walls individually... maybe keep track of them in a List?
-            Object.DestroyImmediate(parents.GetParent(Parents.GeneratedWalls).gameObject);
+            foreach (var wall in walls)
+            {
+                Object.DestroyImmediate(wall.gameObject);
+            }
+            walls.Clear();
         }
     }
 }

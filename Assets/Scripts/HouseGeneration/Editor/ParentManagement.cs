@@ -8,6 +8,7 @@ namespace Coffee.HouseGen
         Editor,
         GeneratedWalls,
         Walls,
+        Doors,
         Grid,
     }
     
@@ -22,6 +23,7 @@ namespace Coffee.HouseGen
         private const string GridParentPath = EditorParentPath + "/Grid";
         
         private const string WallParentPath = "House/Infrastructure/Walls";
+        private const string DoorParentPath = "House/Infrastructure/Doors";
         
         private readonly Dictionary<Parents, string> pathDict = new Dictionary<Parents, string>()
         {
@@ -29,6 +31,7 @@ namespace Coffee.HouseGen
             { Parents.GeneratedWalls, GeneratedWallParentPath },
             { Parents.Grid, GridParentPath },
             { Parents.Walls, WallParentPath },
+            { Parents.Doors, DoorParentPath },
         };
 
         private readonly Dictionary<Parents, Transform> transformDict = new Dictionary<Parents, Transform>();

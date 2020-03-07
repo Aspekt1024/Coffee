@@ -276,6 +276,7 @@
             <e p="InputLabels.cs" t="Include" />
           </e>
           <e p="Data" t="Include">
+            <e p="LayerDefinitions.cs" t="Include" />
             <e p="TagDefnitions.cs" t="Include" />
           </e>
           <e p="HouseGeneration" t="Include">
@@ -285,6 +286,7 @@
               <e p="HouseEditor.cs" t="Include" />
               <e p="HouseEditorGrid.cs" t="Include" />
               <e p="ParentManagement.cs" t="Include" />
+              <e p="PositionUtility.cs" t="Include" />
               <e p="WallGeneration" t="Include">
                 <e p="WallGeneration.cs" t="Include" />
               </e>
