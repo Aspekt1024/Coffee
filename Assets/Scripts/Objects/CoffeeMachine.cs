@@ -10,11 +10,18 @@ namespace Coffee
             if (interactor.CurrentItem is Cup cup)
             {
                 if (cup.HasCoffee) return InteractionTypes.None;
-                cup.AddCoffee();
                 return InteractionTypes.Grab;
             }
 
             return InteractionTypes.None;
+        }
+
+        public void ApplyUse(IInteractionComponent interactor)
+        {
+            if (interactor.CurrentItem is Cup cup)
+            {
+                cup.AddCoffee();
+            }
         }
     }
 }

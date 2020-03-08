@@ -12,14 +12,13 @@ namespace Coffee.Characters
         #pragma warning restore 649
 
         private IActor actor;
-        private static readonly int AnimSpeedParam = Animator.StringToHash("speed");
 
         public void Move(float xAxis, float zAxis)
         {
             var heading = new Vector3(xAxis, 0f, zAxis).normalized;
 
             body.velocity = heading * maxSpeed;
-            actor.Animator.Controller.SetFloat(AnimSpeedParam, body.velocity.magnitude);
+            actor.Animator.Controller.SetFloat(AnimationComponent.AnimSpeedParam, body.velocity.magnitude);
 
             if (body.velocity.magnitude < 0.2f) return;
             

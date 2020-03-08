@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &167223652636216511
+--- !u!1 &3722531767562289516
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 162313610680001711}
-  - component: {fileID: 167069054513644727}
+  - component: {fileID: 3727758606168123772}
+  - component: {fileID: 3722932656291940708}
   m_Layer: 0
-  m_Name: Coffee
+  m_Name: Cup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &162313610680001711
+--- !u!4 &3727758606168123772
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167223652636216511}
-  m_LocalRotation: {x: -0, y: -0.9999846, z: 0, w: -0.005558592}
-  m_LocalPosition: {x: 0.65, y: 0.968, z: -6.481}
+  m_GameObject: {fileID: 3722531767562289516}
+  m_LocalRotation: {x: -0, y: 0.27449065, z: -0, w: 0.9615898}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 171102782128154425}
-  - {fileID: 162322373712971287}
+  - {fileID: 3721361972157016810}
+  - {fileID: 3727749842060315588}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -180.637, z: 0}
---- !u!114 &167069054513644727
+  m_LocalEulerAnglesHint: {x: 0, y: 31.863, z: 0}
+--- !u!114 &3722932656291940708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167223652636216511}
+  m_GameObject: {fileID: 3722531767562289516}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb649895cba943fda7261376d3f6b9be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
-  liquid: {fileID: 168840850824344207}
---- !u!1 &167248481678358499
+  ingredient: 0
+  liquid: {fileID: 3723588718958821212}
+--- !u!1 &3722542260197128752
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,10 +55,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 162322373712971287}
-  - component: {fileID: 154374928440905619}
-  - component: {fileID: 144998454348949291}
-  - component: {fileID: 7164251678102005714}
+  - component: {fileID: 3727749842060315588}
+  - component: {fileID: 3737843380491043392}
+  - component: {fileID: 3744792287662025464}
   m_Layer: 0
   m_Name: cup
   m_TagString: Untagged
@@ -66,35 +65,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &162322373712971287
+--- !u!4 &3727749842060315588
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167248481678358499}
+  m_GameObject: {fileID: 3722542260197128752}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.109, y: 0.022, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 162313610680001711}
+  m_Father: {fileID: 3727758606168123772}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &154374928440905619
+--- !u!33 &3737843380491043392
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167248481678358499}
+  m_GameObject: {fileID: 3722542260197128752}
   m_Mesh: {fileID: 4300000, guid: 89c2450bbaa1c476bbe11493cb92548f, type: 3}
---- !u!23 &144998454348949291
+--- !u!23 &3744792287662025464
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167248481678358499}
+  m_GameObject: {fileID: 3722542260197128752}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -127,20 +126,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7164251678102005714
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167248481678358499}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.24974036, z: 0.31360644}
-  m_Center: {x: -0.07, y: 0.0000000037252903, z: 0.000000007450585}
---- !u!1 &168840850824344207
+--- !u!1 &3723588718958821212
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,45 +134,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 171102782128154425}
-  - component: {fileID: 154278507718594271}
-  - component: {fileID: 145152985375266249}
+  - component: {fileID: 3721361972157016810}
+  - component: {fileID: 3737728831340921612}
+  - component: {fileID: 3744919230402123802}
   m_Layer: 0
-  m_Name: coffee
+  m_Name: liquid
   m_TagString: Fluid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &171102782128154425
+--- !u!4 &3721361972157016810
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168840850824344207}
+  m_GameObject: {fileID: 3723588718958821212}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.184, y: -0.103, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 162313610680001711}
+  m_Father: {fileID: 3727758606168123772}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &154278507718594271
+--- !u!33 &3737728831340921612
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168840850824344207}
+  m_GameObject: {fileID: 3723588718958821212}
   m_Mesh: {fileID: 4300002, guid: 89c2450bbaa1c476bbe11493cb92548f, type: 3}
---- !u!23 &145152985375266249
+--- !u!23 &3744919230402123802
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168840850824344207}
+  m_GameObject: {fileID: 3723588718958821212}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1

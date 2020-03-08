@@ -11,48 +11,87 @@ namespace Coffee.Characters
         #pragma warning restore 649
         
         private IActor actor;
-        
-        public Item CurrentItem { get; private set; }
-        
-        public bool Interact()
+
+        private IInteractible currentInteractible;
+
+        private enum States
         {
-            var origin = actor.Transform.position;
-            origin.y = 1f;
+            None,
+            UsingInteractible,
+            UsingItem,
+        }
 
-            var layer = LayerUtil.GetMask(Layers.Interactible);
-            bool hit = Physics.Raycast(origin, actor.Transform.forward, out var hitInfo, 5f, layer);
+        private States state;
 
-            if (!hit) return false;
+        public bool IsBusy => state != States.None;
+        public IItem CurrentItem { get; private set; }
+        
+        public void Interact()
+        {
+            if (IsBusy) return;
             
-            var interactible = hitInfo.collider.GetComponent<IInteractible>();
-            if (interactible == null)
+            // Use interactibles first, whether we're holding an item or not.
+            // If that fails, try and use the held item if we're holding one.
+            currentInteractible = GetInteractible();
+            if (currentInteractible != null)
             {
-                interactible = hitInfo.collider.GetComponentInParent<IInteractible>();
-                if (interactible == null) return false;
+                var type = currentInteractible.Use(this);
+
+                if (type != InteractionTypes.None)
+                {
+                    actor.Animator.ApplyInteractionAnimation(type);
+                    state = States.UsingInteractible;
+                    return;
+                }
             }
-            var type = interactible.Use(this);
-            actor.Animator.ApplyInteractionAnimation(type);
-            return type != InteractionTypes.None;
+
+            // No interactibles were used
+            if (CurrentItem != null)
+            {
+                var type = CurrentItem.CanUse(this);
+                if (type != InteractionTypes.None)
+                {
+                    actor.Animator.ApplyInteractionAnimation(type);
+                    state = States.UsingItem;
+                    return;
+                }
+            }
+            
+            state = States.None;
         }
 
         public void Apply()
         {
-            if (CurrentItem == null) return;
-            
-            var currentTf = CurrentItem.transform;
-            currentTf.SetParent(itemGrabPoint);
-            currentTf.position = itemGrabPoint.transform.position;
-            currentTf.rotation = itemGrabPoint.transform.rotation;
+            switch (state)
+            {
+                case States.None:
+                    break;
+                case States.UsingInteractible:
+                    currentInteractible?.ApplyUse(this);
+                    break;
+                case States.UsingItem:
+                    CurrentItem?.Use(this);
+                    break;
+                default:
+                    Debug.LogError("invalid state: " + state);
+                    break;
+            }
+
+            state = States.None;
         }
         
-        public bool ReceiveItem(Item item)
+        public bool ReceiveItem(IItem item)
         {
             if (CurrentItem != null) return false;
             CurrentItem = item;
+            
+            var currentTf = item.Transform;
+            currentTf.SetParent(itemGrabPoint);
+            currentTf.SetPositionAndRotation(itemGrabPoint.position, itemGrabPoint.rotation);
             return true;
         }
 
-        public Item RemoveItem()
+        public IItem RemoveItem()
         {
             var item = CurrentItem;
             CurrentItem = null;
@@ -62,6 +101,24 @@ namespace Coffee.Characters
         public void Init(IActor actor)
         {
             this.actor = actor;
+        }
+
+        private IInteractible GetInteractible()
+        {
+            var origin = actor.Transform.position;
+            origin.y = 1f;
+
+            var layer = LayerUtil.GetMask(Layers.Interactible);
+            bool hit = Physics.Raycast(origin, actor.Transform.forward, out var hitInfo, 5f, layer);
+
+            if (!hit) return null;
+            
+            var interactible = hitInfo.collider.GetComponent<IInteractible>();
+            if (interactible == null)
+            {
+                interactible = hitInfo.collider.GetComponentInParent<IInteractible>();
+            }
+            return interactible;
         }
     }
 }

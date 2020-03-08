@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Coffee
 {
-    public class Room : ResettableItem
+    public class Room : Resettable
     {
         #pragma warning disable 649
         [SerializeField] private Light[] lights;
@@ -25,11 +25,11 @@ namespace Coffee
             }
         }
 
-        private void EnableLights(bool enabled)
+        private void EnableLights(bool isEnabled)
         {
             foreach (var l in lights)
             {
-                l.enabled = enabled;
+                l.enabled = isEnabled;
             }
         }
 

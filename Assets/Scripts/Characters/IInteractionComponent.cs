@@ -7,7 +7,7 @@ namespace Coffee.Characters
         /// <summary>
         /// Begins an interaction attempt
         /// </summary>
-        bool Interact();
+        void Interact();
         
         /// <summary>
         /// Applies the interaction result
@@ -17,16 +17,16 @@ namespace Coffee.Characters
         /// <summary>
         /// The current item held by the actor
         /// </summary>
-        Item CurrentItem { get; }
+        IItem CurrentItem { get; }
         
         /// <summary>
         /// Gives the actor an item, returns true if successful
         /// </summary>
-        bool ReceiveItem(Item item);
+        bool ReceiveItem(IItem item);
         
         /// <summary>
         /// Takes the item currently held by the actor, returns null if not holding anything
         /// </summary>
-        Item RemoveItem();
+        IItem RemoveItem();
     }
 }

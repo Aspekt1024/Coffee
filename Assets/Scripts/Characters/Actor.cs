@@ -25,6 +25,12 @@ namespace Coffee
 
         private void Update()
         {
+            if (IsBusy)
+            {
+                movement.Move(0,0);
+                return;
+            }
+            
             // Movement inputs
             var hAxis = input.GetAxis(InputLabels.MoveHorizontal);
             var vAxis = input.GetAxis(InputLabels.MoveVertical);
@@ -33,19 +39,14 @@ namespace Coffee
             // Interaction inputs
             if (input.GetButtonDown(InputLabels.Interact))
             {
-                if(!interaction.Interact())
-                {
-                    //TODO failed interaction animation
-                }
+                interaction.Interact();
             }
         }
         
         private void InitialiseComponents()
         {
             input = ReInput.players.GetPlayer(playerId);
-            var anim = GetComponent<Animator>();
-            
-            Animator = new AnimationComponent(anim);
+            Animator = new AnimationComponent(GetComponent<Animator>());
             
             interaction.Init(this);
             movement.Init(this);
@@ -58,5 +59,7 @@ namespace Coffee
         {
             interaction.Apply();
         }
+
+        private bool IsBusy => interaction.IsBusy;
     }
 }
