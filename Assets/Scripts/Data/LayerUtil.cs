@@ -10,10 +10,15 @@ namespace Coffee
         Player,
     }
     
-    public static class LayerDefinitions
+    public static class LayerUtil
     {
 
-        public static LayerMask GetLayerMask(IEnumerable<Layers> layers)
+        public static LayerMask GetMask(Layers layer)
+        {
+            return GetMask(new[] {layer});
+        }
+        
+        public static LayerMask GetMask(IEnumerable<Layers> layers)
         {
             int mask = 0;
             foreach (var layer in layers)

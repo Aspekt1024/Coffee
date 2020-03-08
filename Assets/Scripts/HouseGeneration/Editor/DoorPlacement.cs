@@ -147,7 +147,7 @@ namespace Coffee.HouseGen
         private GameObject GetOverlappingWall(Vector3 pos)
         {
             var colliders = new Collider[2];
-            var layers = LayerDefinitions.GetLayerMask(new[] {Layers.Wall, Layers.Interactible});
+            var layers = LayerUtil.GetMask(new[] {Layers.Wall, Layers.Interactible});
             
             var numColliders = Physics.OverlapSphereNonAlloc(pos, 0.1f, colliders, layers);
             for (int i = 0; i < numColliders; i++)

@@ -1,4 +1,5 @@
-﻿using Rewired;
+﻿using Coffee.Characters;
+using Rewired;
 using UnityEngine;
 
 namespace Coffee
@@ -6,54 +7,56 @@ namespace Coffee
     public class Actor : MonoBehaviour, IActor
     {
         #pragma warning disable 649
-        [SerializeField] private int playerId = 0;
-        [SerializeField] private float speed = 5f;
-        [SerializeField] private Transform itemGrabPoint;
+        [SerializeField] private int playerId;
+        [SerializeField] private InteractionComponent interaction;
+        [SerializeField] private BasicMovement movement;
         #pragma warning restore 649
+        
+        public AnimationComponent Animator { get; private set; }
     
-        private Rigidbody body;
-        private Player player;
+        private Player input;
 
+        public Transform Transform => transform;
+        
         private void Awake()
         {
-            body = GetComponent<Rigidbody>();
-            player = ReInput.players.GetPlayer(playerId);
+            InitialiseComponents();
         }
 
         private void Update()
         {
-//            var horizMovement = player.GetAxis(InputLabels.MoveHorizontal);
-//            var vertMovement = player.GetAxis(InputLabels.MoveVertical);
-//        
-//            body.velocity = new Vector3(horizMovement, 0f, vertMovement) * speed;
-        }
-
-        public Item CurrentItem { get; private set; }
-
-        public bool GiveItem(Item item)
-        {
-            if (CurrentItem != null) return false;
+            // Movement inputs
+            var hAxis = input.GetAxis(InputLabels.MoveHorizontal);
+            var vAxis = input.GetAxis(InputLabels.MoveVertical);
+            movement.Move(hAxis, vAxis);
             
-            CurrentItem = item;
-            var currentTf = CurrentItem.transform;
-            currentTf.SetParent(itemGrabPoint);
-            currentTf.position = itemGrabPoint.transform.position;
-            currentTf.rotation = itemGrabPoint.transform.rotation;
+            // Interaction inputs
+            if (input.GetButtonDown(InputLabels.Interact))
+            {
+                if(!interaction.Interact())
+                {
+                    //TODO failed interaction animation
+                }
+            }
+        }
+        
+        private void InitialiseComponents()
+        {
+            input = ReInput.players.GetPlayer(playerId);
+            var anim = GetComponent<Animator>();
             
-            return true;
+            Animator = new AnimationComponent(anim);
+            
+            interaction.Init(this);
+            movement.Init(this);
         }
 
-        public Item RemoveItem()
+        /// <summary>
+        /// Applies the interaction result. Usually called by the animator
+        /// </summary>
+        private void ApplyInteraction()
         {
-            var item = CurrentItem;
-            CurrentItem = null;
-            return item;
-        }
-
-        public void MoveTo(Vector3 position, Vector3 lookPosition)
-        {
-            body.MovePosition(position);
-            body.transform.LookAt(lookPosition);
+            interaction.Apply();
         }
     }
 }

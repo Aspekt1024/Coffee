@@ -1,3 +1,4 @@
+using Coffee.Characters;
 using UnityEngine;
 
 namespace Coffee
@@ -21,23 +22,23 @@ namespace Coffee
             Empty();
         }
 
-        public bool Use(IActor actor)
+        public bool Use(IInteractionComponent interactor)
         {
-            if (actor.CurrentItem == null && IsReady)
+            if (interactor.CurrentItem == null && IsReady)
             {
                 GameManager.Data.HadCoffee = true;
                 Empty();
                 return true;
             }
 
-            if (actor.CurrentItem is Milk)
+            if (interactor.CurrentItem is Milk)
             {
                 if (IsReady || hasMilk)
                 {
                     return false;
                 }
 
-                var milk = actor.RemoveItem();
+                var milk = interactor.RemoveItem();
                 milk.Destroy();
                 hasMilk = true;
                 return true;

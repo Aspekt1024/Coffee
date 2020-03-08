@@ -1,3 +1,4 @@
+using Coffee.Characters;
 using UnityEngine;
 
 namespace Coffee

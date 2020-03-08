@@ -1,10 +1,11 @@
+using Coffee.Characters;
 using UnityEngine;
 
 namespace Coffee
 {
     public class ExitDoor : Door
     {
-        public override bool Use(IActor actor)
+        public override InteractionTypes Use(IInteractionComponent interactor)
         {
             var currentDay = GameManager.Data.Day;
             var canLeave = GameManager.Data.HadCoffee;
@@ -14,10 +15,10 @@ namespace Coffee
 
             if (canLeave)
             {
-                return base.Use(actor);
+                return base.Use(interactor);
             }
 
-            return false;
+            return InteractionTypes.None;
         }
 
         private string GetSuccessText(int day)

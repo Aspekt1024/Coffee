@@ -1,19 +1,20 @@
+using Coffee.Characters;
 using UnityEngine;
 
 namespace Coffee
 {
     public class CoffeeMachine: MonoBehaviour, IInteractible
     {
-        public bool Use(IActor actor)
+        public InteractionTypes Use(IInteractionComponent interactor)
         {
-            if (actor.CurrentItem is Cup cup)
+            if (interactor.CurrentItem is Cup cup)
             {
-                if (cup.HasCoffee) return false;
+                if (cup.HasCoffee) return InteractionTypes.None;
                 cup.AddCoffee();
-                return true;
+                return InteractionTypes.Grab;
             }
 
-            return false;
+            return InteractionTypes.None;
         }
     }
 }

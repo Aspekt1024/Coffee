@@ -1,4 +1,5 @@
 using System;
+using Coffee.Characters;
 using UnityEngine;
 
 namespace Coffee
@@ -29,27 +30,27 @@ namespace Coffee
 
             state = States.CupSet;
         }
-
-        public bool Use(IActor actor)
+        
+        public InteractionTypes Use(IInteractionComponent interactor)
         {
             switch (state)
             {
                 case States.CupSet:
-                    var used = cup.Use(actor);
-                    if (!used && actor.CurrentItem == null)
+                    var used = cup.Use(interactor);
+                    if (!used && interactor.CurrentItem == null)
                     {
-                        actor.GiveItem(cup);
+                        interactor.ReceiveItem(cup);
                         cup = null;
                         state = States.CupRemoved;
-                        return true;
+                        return InteractionTypes.Grab;
                     }
-                    return false;
+                    return InteractionTypes.None;
                 case States.CupRemoved:
-                    if (actor.CurrentItem is Cup)
+                    if (interactor.CurrentItem is Cup)
                     {
-                        var c = (Cup)actor.RemoveItem();
+                        var c = (Cup)interactor.RemoveItem();
                         Set(c);
-                        return true;
+                        return InteractionTypes.Grab;
                     }
                     break;
                 default:
@@ -57,7 +58,7 @@ namespace Coffee
                     break;
             }
 
-            return false;
+            return InteractionTypes.None;
         }
     }
 }

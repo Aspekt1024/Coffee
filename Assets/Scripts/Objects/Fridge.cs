@@ -1,3 +1,4 @@
+using Coffee.Characters;
 using UnityEngine;
 
 namespace Coffee
@@ -8,16 +9,16 @@ namespace Coffee
         [SerializeField] private GameObject milkPrefab;
         #pragma warning restore 649
         
-        public bool Use(IActor actor)
+        public InteractionTypes Use(IInteractionComponent interactor)
         {
-            if (actor.CurrentItem == null)
+            if (interactor.CurrentItem == null)
             {
                 var milk = Instantiate(milkPrefab, transform).GetComponent<Milk>();
-                actor.GiveItem(milk);
-                return true;
+                interactor.ReceiveItem(milk);
+                return InteractionTypes.Grab;
             }
 
-            return false;
+            return InteractionTypes.None;
         }
     }
 }

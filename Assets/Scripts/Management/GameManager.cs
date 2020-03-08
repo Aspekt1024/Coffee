@@ -20,6 +20,13 @@ namespace Coffee
             {
                 if (instance == null)
                 {
+                    var gm = FindObjectOfType<GameManager>();
+                    if (gm == null)
+                    {
+                        Debug.LogWarning("No Game Manager found in scene, although something is trying to access it. If this is a test scene, there's probably nothing to worry about.");
+                        return null;
+                    }
+                    
                     Debug.LogError("Calling GameManager.Instance too early. This is set in Awake(). Use Start()");
                 }
                 return instance;

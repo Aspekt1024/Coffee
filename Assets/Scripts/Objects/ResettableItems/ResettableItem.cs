@@ -1,12 +1,10 @@
-using System;
-using UnityEngine;
-
 namespace Coffee
 {
     public abstract class ResettableItem : Item, IResettableItem
     {
         private void Start()
         {
+            if (GameManager.Instance == null) return;
             GameManager.House.AddResettableItem(this);
         }
 
@@ -14,6 +12,7 @@ namespace Coffee
 
         public override void Destroy()
         {
+            if (GameManager.Instance == null) return;
             GameManager.House.RemoveResettableItem(this);
             base.Destroy();
         }

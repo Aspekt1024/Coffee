@@ -9,6 +9,21 @@
       <e p="Assets" t="Include">
         <e p="ImportedAssets" t="Include">
           <e p="Characters" t="Include">
+            <e p="AcquireChan" t="Include">
+              <e p="Models" t="Include">
+                <e p="Shaders" t="Include">
+                  <e p="imagine_chara.shader" t="Include" />
+                  <e p="imagine_chara_parts_body.shader" t="Include" />
+                  <e p="imagine_chara_parts_face.shader" t="Include" />
+                  <e p="imagine_chara_parts_hair.shader" t="Include" />
+                </e>
+              </e>
+              <e p="Scripts" t="Include">
+                <e p="AcquireChanController.cs" t="Include" />
+                <e p="MotionChanger.cs" t="Include" />
+                <e p="SimpleFollowCam.cs" t="Include" />
+              </e>
+            </e>
             <e p="Casual RPG Character - 4 Avelyn" t="Include">
               <e p="README.txt" t="Include" />
             </e>
@@ -24,6 +39,57 @@
               <e p="Scripts" t="Include">
                 <e p="CharacterSkinController.cs" t="Include" />
                 <e p="MovementInput.cs" t="Include" />
+              </e>
+            </e>
+            <e p="unity-chan!" t="Include">
+              <e p="Unity-chan! Model" t="Include">
+                <e p="Art" t="Include">
+                  <e p="Stage" t="Include">
+                    <e p="Shader" t="Include">
+                      <e p="AlphaMask.shader" t="Include" />
+                    </e>
+                  </e>
+                  <e p="UnityChanShader" t="Include">
+                    <e p="Shader" t="Include">
+                      <e p="Unitychan_chara_akarami_blend.shader" t="Include" />
+                      <e p="Unitychan_chara_eye.shader" t="Include" />
+                      <e p="Unitychan_chara_eye_blend.shader" t="Include" />
+                      <e p="Unitychan_chara_eyelash_blend.shader" t="Include" />
+                      <e p="Unitychan_chara_fuku.shader" t="Include" />
+                      <e p="Unitychan_chara_fuku_ds.shader" t="Include" />
+                      <e p="Unitychan_chara_hada.shader" t="Include" />
+                      <e p="Unitychan_chara_hada_blend.shader" t="Include" />
+                      <e p="Unitychan_chara_hair.shader" t="Include" />
+                      <e p="Unitychan_chara_hair_ds.shader" t="Include" />
+                    </e>
+                  </e>
+                </e>
+                <e p="Audio" t="Include">
+                  <e p="Voice" t="Include">
+                    <e p="unity-chan_voice_list.txt" t="Include" />
+                  </e>
+                </e>
+                <e p="Editor" t="Include">
+                  <e p="CreateLocatorHere.cs" t="Include" />
+                </e>
+                <e p="Scripts" t="Include">
+                  <e p="AutoBlink.cs" t="Include" />
+                  <e p="CameraController.cs" t="Include" />
+                  <e p="FaceUpdate.cs" t="Include" />
+                  <e p="IdleChanger.cs" t="Include" />
+                  <e p="IKCtrlRightHand.cs" t="Include" />
+                  <e p="RandomWind.cs" t="Include" />
+                  <e p="SpringBone.cs" t="Include" />
+                  <e p="SpringCollider.cs" t="Include" />
+                  <e p="SpringManager.cs" t="Include" />
+                  <e p="ThirdPersonCamera.cs" t="Include" />
+                  <e p="UnityChanControlScriptWithRgidBody.cs" t="Include" />
+                </e>
+                <e p="SplashScreen" t="Include">
+                  <e p="Scripts" t="Include">
+                    <e p="SplashScreen.cs" t="Include" />
+                  </e>
+                </e>
               </e>
             </e>
           </e>
@@ -268,15 +334,20 @@
           </e>
           <e p="Characters" t="Include">
             <e p="Actor.cs" t="Include" />
+            <e p="AnimationComponent.cs" t="Include" />
+            <e p="BasicMovement.cs" t="Include" />
             <e p="IActor.cs" t="Include" />
+            <e p="IActorComponent.cs" t="Include" />
+            <e p="IInteractionComponent.cs" t="Include" />
+            <e p="IMovementController.cs" t="Include" />
+            <e p="InteractionComponent.cs" t="Include" />
             <e p="SpawnPoint.cs" t="Include" />
           </e>
           <e p="Controller" t="Include">
-            <e p="Controller.cs" t="Include" />
             <e p="InputLabels.cs" t="Include" />
           </e>
           <e p="Data" t="Include">
-            <e p="LayerDefinitions.cs" t="Include" />
+            <e p="LayerUtil.cs" t="Include" />
             <e p="TagDefnitions.cs" t="Include" />
           </e>
           <e p="HouseGeneration" t="Include">
@@ -394,11 +465,62 @@
             <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
         </e>
+        <e p="UMotionEditor" t="Include">
+          <e p="Plugins" t="Include">
+            <e p="MacOS" t="Include">
+              <e p="Editor" t="Include">
+                <e p="x64" t="Include">
+                  <e p="AutodeskFbxSdkLicense.txt" t="Include" />
+                  <e p="UnityFbxSdkNativeLicense.txt" t="Include" />
+                </e>
+              </e>
+            </e>
+            <e p="Windows" t="Include">
+              <e p="Editor" t="Include">
+                <e p="x64" t="Include">
+                  <e p="AutodeskFbxSdkLicense.txt" t="Include" />
+                  <e p="UnityFbxSdkNativeLicense.txt" t="Include" />
+                </e>
+              </e>
+            </e>
+          </e>
+          <e p="Scripts" t="Include">
+            <e p="Application" t="Include">
+              <e p="AssetResourcesFile.cs" t="Include" />
+              <e p="UMotionSourceApplication.asmdef" t="Include" />
+              <e p="VersionCompatibilityUtility.cs" t="Include" />
+            </e>
+            <e p="Editor" t="Include">
+              <e p="AnimationCurveUtilityRecent.cs" t="Include" />
+              <e p="EditorVersionCompatibilityUtility.cs" t="Include" />
+              <e p="GUICompatibilityUtility.cs" t="Include" />
+              <e p="UMotionSourceEditor.asmdef" t="Include" />
+            </e>
+          </e>
+          <e p="Shaders" t="Include">
+            <e p="CameraLit.shader" t="Include" />
+            <e p="ColorUnlit.shader" t="Include" />
+            <e p="ColorUnlitTransparent.shader" t="Include" />
+            <e p="UnlitDashedLine.shader" t="Include" />
+            <e p="UnlitLine.shader" t="Include" />
+            <e p="VertexColorUnlit.shader" t="Include" />
+            <e p="WiresOnly.shader" t="Include" />
+          </e>
+        </e>
+        <e p="UMotionExamples" t="Include">
+          <e p="Miscellaneous" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="ResetPosition.cs" t="Include" />
+            </e>
+          </e>
+        </e>
       </e>
       <e p="Coffee.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
       <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="UMotionSourceApplication.csproj" t="IncludeRecursive" />
+      <e p="UMotionSourceEditor.csproj" t="IncludeRecursive" />
     </e>
   </component>
 </project>

@@ -1,4 +1,5 @@
 ﻿using Coffee;
+using Coffee.Characters;
 using UnityEngine;
 
 public class Door : ResettableItem, IInteractible
@@ -24,7 +25,7 @@ public class Door : ResettableItem, IInteractible
         CloseImmediate();
     }
 
-    public virtual bool Use(IActor actor)
+    public virtual InteractionTypes Use(IInteractionComponent interactor)
     {
         if (state == States.Closed)
         {
@@ -34,7 +35,7 @@ public class Door : ResettableItem, IInteractible
         {
             Close();
         }
-        return true;
+        return InteractionTypes.Open;
     }
 
     public override void ResetState()

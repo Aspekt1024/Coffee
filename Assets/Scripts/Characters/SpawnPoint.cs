@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Coffee
+namespace Coffee.Characters
 {
     public class SpawnPoint : MonoBehaviour
     {

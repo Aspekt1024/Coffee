@@ -1,7 +1,16 @@
+using Coffee.Characters;
+
 namespace Coffee
 {
+    public enum InteractionTypes
+    {
+        None,
+        Grab,
+        Open,
+    }
+    
     public interface IInteractible
     {
-        bool Use(IActor actor);
+        InteractionTypes Use(IInteractionComponent interactor);
     }
 }
