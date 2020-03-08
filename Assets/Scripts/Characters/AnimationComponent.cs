@@ -12,6 +12,7 @@ namespace Coffee.Characters
         private const string GrabAnim = "Grab";
         private const string OpenAnim = "Open";
         private const string DrinkAnim = "Drink";
+        private const string PourAnim = "Pour";
         
         public Animator Controller { get; }
 
