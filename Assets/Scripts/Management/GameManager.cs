@@ -11,6 +11,7 @@ namespace Coffee
         public static UIManager UI { get; private set; }
         public static GameplayManager Gameplay { get; private set; }
         public static CharacterManager Character { get; private set; }
+        public static CameraManager Camera { get; private set; }
 
         private bool isGameInitialisedAndStarted = false;
 
@@ -63,12 +64,14 @@ namespace Coffee
             UI = FindObjectOfType<UIManager>();
             Gameplay = new GameplayManager();
             Character = new CharacterManager();
+            Camera = new CameraManager();
             
             Data.Init();
             House.Init();
             Gameplay.Init();
             UI.Init();
             Character.Init();
+            Camera.Init();
         }
     }
 }

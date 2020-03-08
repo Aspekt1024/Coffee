@@ -363,6 +363,7 @@
             </e>
           </e>
           <e p="Management" t="Include">
+            <e p="CameraManager.cs" t="Include" />
             <e p="CharacterManager.cs" t="Include" />
             <e p="DataManager.cs" t="Include" />
             <e p="GameManager.cs" t="Include" />
