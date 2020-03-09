@@ -9,10 +9,12 @@ namespace Coffee
         {
             Running,
             Paused,
-            Tooltip,
+            PlayerInputDisabled,
         }
 
         public States State { get; private set; }
+
+        public bool IsPlayerInputDisabled => State == States.PlayerInputDisabled || State == States.Paused;
         
         public void Init()
         {
@@ -26,17 +28,15 @@ namespace Coffee
             GameManager.UI.ShowDialogue("Disembodied voice", "You've just woken up.\nYour goal is simple: leave for work.");
         }
 
-        public void PauseForTooltip()
+        public void EnablePlayerInput()
         {
-            State = States.Tooltip;
+            State = States.Running;
         }
-
-        public void SetState(States state)
+        
+        public void DisablePlayerInput()
         {
-            State = state;
+            State = States.PlayerInputDisabled;
         }
-
-        public bool IsPaused => State == States.Paused || State == States.Tooltip;
         
         public void DayComplete()
         {

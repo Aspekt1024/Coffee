@@ -38,7 +38,7 @@ namespace Coffee
 
         public void OKClicked()
         {
-            GameManager.Gameplay.SetState(GameplayManager.States.Running);
+            GameManager.Gameplay.EnablePlayerInput();
             Close();
         }
     }

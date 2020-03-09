@@ -21,7 +21,7 @@ namespace Coffee
             var details = new DialogueUI.Details(speaker, message);
             dialogue.Populate(details);
             dialogue.Open();
-            GameManager.Gameplay.SetState(GameplayManager.States.Tooltip);
+            GameManager.Gameplay.DisablePlayerInput();
         }
 
         public IEnumerator FadeOut()

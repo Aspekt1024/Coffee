@@ -25,7 +25,7 @@ namespace Coffee
 
         private void Update()
         {
-            if (IsBusy)
+            if (!IsInputAllowed)
             {
                 movement.Move(0,0);
                 return;
@@ -60,6 +60,6 @@ namespace Coffee
             interaction.Apply();
         }
 
-        private bool IsBusy => interaction.IsBusy;
+        private bool IsInputAllowed => !interaction.IsBusy && !GameManager.Gameplay.IsPlayerInputDisabled;
     }
 }

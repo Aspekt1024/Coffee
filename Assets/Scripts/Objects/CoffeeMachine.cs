@@ -62,6 +62,7 @@ namespace Coffee
                     {
                         state = States.Operating;
                         TakeCup((Cup)interactor.RemoveItem());
+                        GameManager.Gameplay.DisablePlayerInput();
                     }
                     break;
                 case States.Ready:
@@ -98,6 +99,7 @@ namespace Coffee
             
             yield return new WaitForSeconds(0.5f);
             GameManager.Camera.UnZoom();
+            GameManager.Gameplay.EnablePlayerInput();
         }
 
         private void TakeCup(Cup c)
