@@ -30,6 +30,7 @@ namespace Coffee
         public override void ResetState()
         {
             state = States.Empty;
+            item = null;
             if (itemPrefab == null) return;
 
             item = Instantiate(itemPrefab);
@@ -37,6 +38,7 @@ namespace Coffee
 
             state = States.HasItem;
             item.ResetState();
+            GameManager.House.AddTemporaryItem(item);
             Set(item);
         }
         

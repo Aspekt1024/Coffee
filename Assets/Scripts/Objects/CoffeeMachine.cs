@@ -69,6 +69,7 @@ namespace Coffee
                     if (interactor.ReceiveItem(heldCup))
                     {
                         heldCup.gameObject.SetActive(true);
+                        heldCup.AddCoffee(true);
                         cupVisual.gameObject.SetActive(false);
                         heldCup = null;
                         state = States.None;
@@ -89,8 +90,7 @@ namespace Coffee
         private IEnumerator Dispense()
         {
             animator.SetBool(IsDispensingAnimProp, true);
-            cupVisual.AddCoffee();
-            heldCup.AddCoffee();
+            cupVisual.AddCoffee(false);
             
             yield return new WaitForSeconds(1.2f);
             

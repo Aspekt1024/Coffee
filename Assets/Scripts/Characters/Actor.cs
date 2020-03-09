@@ -42,6 +42,12 @@ namespace Coffee
                 interaction.Interact();
             }
         }
+
+        public void ResetState()
+        {
+            var item = interaction.RemoveItem();
+            item?.Destroy();
+        }
         
         private void InitialiseComponents()
         {

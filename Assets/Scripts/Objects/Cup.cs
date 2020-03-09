@@ -1,3 +1,4 @@
+using System;
 using Coffee.Characters;
 using UnityEngine;
 
@@ -11,10 +12,17 @@ namespace Coffee
         
         private static readonly int IsFilledAnimParam = Animator.StringToHash("isFilled");
 
+        private Animator anim;
+
         public bool HasCoffee { get; private set; }
         public bool HasMilk { get; private set; }
         
         private bool IsReady => HasCoffee && HasMilk;
+
+        private void Start()
+        {
+            anim = GetComponent<Animator>();
+        }
 
         public override InteractionTypes CanUse(IInteractionComponent interactor)
         {
@@ -60,10 +68,15 @@ namespace Coffee
             Empty();
         }
 
-        public void AddCoffee()
+        public void AddCoffee(bool immediate)
         {
             HasCoffee = true;
             Fill();
+            
+            if (immediate)
+            {
+                anim.Play("Fill", 0, 1f);
+            }
         }
 
         private void Fill()
@@ -77,6 +90,7 @@ namespace Coffee
             HasCoffee = false;
             HasMilk = false;
             liquid.SetActive(false);
+            GetComponent<Animator>().SetBool(IsFilledAnimParam, false);
         }
 
         private bool CanDrink(IInteractionComponent interactor)

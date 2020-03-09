@@ -6,7 +6,7 @@ namespace Coffee
     public class HouseManager : MonoBehaviour, IManager
     {
         private readonly List<IResettable> resettableItems = new List<IResettable>();
-        private readonly List<Item> temporaryItems = new List<Item>();
+        private readonly List<IItem> temporaryItems = new List<IItem>();
         
         public void Init()
         {
@@ -14,17 +14,17 @@ namespace Coffee
         
         public void ResetItems()
         {
+            foreach (var temporaryItem in temporaryItems)
+            {
+                if (temporaryItem == null || ((Item)temporaryItem).gameObject == null) continue;
+                Destroy(((Item)temporaryItem).gameObject);
+            }
+            temporaryItems.Clear();
+            
             foreach (var item in resettableItems)
             {
                 item.ResetState();
             }
-
-            foreach (var temporaryItem in temporaryItems)
-            {
-                if (temporaryItem == null || temporaryItem.gameObject == null) continue;
-                Destroy(temporaryItem.gameObject);
-            }
-            temporaryItems.Clear();
         }
 
         public void AddResettable(IResettable item)
@@ -40,13 +40,13 @@ namespace Coffee
         /// <summary>
         /// Adds a temporary item which is to be cleaned up before reloading the scene
         /// </summary>
-        public void AddTemporaryItem(Item item)
+        public void AddTemporaryItem(IItem item)
         {
             if (temporaryItems.Contains(item)) return;
             temporaryItems.Add(item);
         }
 
-        public void RemoveTemporaryItem(Item item)
+        public void RemoveTemporaryItem(IItem item)
         {
             temporaryItems.Remove(item);
         }

@@ -20,6 +20,8 @@ namespace Coffee
             var playerPos = spawnPoint.position;
             playerPos.y = Player.transform.position.y;
             Player.transform.position = playerPos;
+
+            Player.ResetState();
         }
     }
 }
