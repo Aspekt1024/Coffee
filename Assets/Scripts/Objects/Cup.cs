@@ -8,6 +8,8 @@ namespace Coffee
         #pragma warning disable 649
         [SerializeField] private GameObject liquid;
         #pragma warning restore 649
+        
+        private static readonly int IsFilledAnimParam = Animator.StringToHash("isFilled");
 
         public bool HasCoffee { get; private set; }
         public bool HasMilk { get; private set; }
@@ -67,6 +69,7 @@ namespace Coffee
         private void Fill()
         {
             liquid.SetActive(true);
+            GetComponent<Animator>().SetBool(IsFilledAnimParam, true);
         }
 
         private void Empty()

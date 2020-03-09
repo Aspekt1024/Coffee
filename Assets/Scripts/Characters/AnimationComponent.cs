@@ -34,7 +34,7 @@ namespace Coffee.Characters
                     Controller.Play(GrabAnim, 0, 0f);
                     break;
                 case InteractionTypes.Drink:
-                    Controller.Play(GrabAnim, 0, 0f);
+                    Controller.Play(DrinkAnim, 0, 0f);
                     break;
                 case InteractionTypes.Pour:
                     Controller.Play(GrabAnim, 0, 0f);

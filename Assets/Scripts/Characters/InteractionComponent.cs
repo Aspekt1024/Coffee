@@ -109,7 +109,7 @@ namespace Coffee.Characters
             origin.y = 1f;
 
             var layer = LayerUtil.GetMask(Layers.Interactible);
-            bool hit = Physics.Raycast(origin, actor.Transform.forward, out var hitInfo, 5f, layer);
+            bool hit = Physics.Raycast(origin, actor.Transform.forward, out var hitInfo, 2f, layer);
 
             if (!hit) return null;
             

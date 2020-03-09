@@ -31,7 +31,7 @@ namespace Coffee
             zoomRoutine = GameManager.Instance.StartCoroutine(ZoomTestRoutine(target.position, target.rotation));
         }
         
-        public void Return()
+        public void UnZoom()
         {
             if (zoomRoutine != null) GameManager.Instance.StopCoroutine(zoomRoutine);
             zoomRoutine = GameManager.Instance.StartCoroutine(ZoomTestRoutine(originalPos, originalRot));
@@ -40,7 +40,7 @@ namespace Coffee
         private IEnumerator ZoomTestRoutine(Vector3 toPos, Quaternion toRot)
         {
             var timer = 0f;
-            const float duration = 2f;
+            const float duration = 1.5f;
 
             var fromPos = mainCamera.transform.position;
             var fromRot = mainCamera.transform.rotation;
