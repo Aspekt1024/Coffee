@@ -19,6 +19,16 @@ namespace Coffee
         /// Resets the item to its default state
         /// </summary>
         void ResetState();
+
+        /// <summary>
+        /// Positions the item's model in the held state
+        /// </summary>
+        void SetHeldState();
+
+        /// <summary>
+        /// Positions the item's model in the placed state
+        /// </summary>
+        void SetPlacedState();
         
         /// <summary>
         /// Destroys the item, removing it from the game

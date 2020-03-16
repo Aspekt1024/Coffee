@@ -8,15 +8,8 @@ namespace Coffee
         {
         }
 
-        public override InteractionTypes CanUse(IInteractionComponent interactor)
-        {
-            return InteractionTypes.None;
-        }
-
-        public override InteractionTypes CanCombine(Ingredients ingredient)
-        {
-            return InteractionTypes.None;
-        }
+        public override InteractionTypes CanUse(IInteractionComponent interactor) => InteractionTypes.None;
+        public override InteractionTypes CanCombine(Ingredients ingredient) => InteractionTypes.None;
 
         public override void Use(IInteractionComponent interactor)
         {

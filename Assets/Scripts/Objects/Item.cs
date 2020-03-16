@@ -7,12 +7,23 @@ namespace Coffee
     {
         #pragma warning disable 649
         [SerializeField] private Ingredients ingredient;
+        [SerializeField] private Transform grabPoint;
+        [SerializeField] private Transform model;
         #pragma warning restore 649
-        
+
         public Transform Transform => transform;
         public Ingredients Ingredient => ingredient;
 
         public abstract void ResetState();
+        public void SetHeldState()
+        {
+            model.localPosition = grabPoint.localPosition;
+        }
+
+        public void SetPlacedState()
+        {
+            model.localPosition = Vector3.zero;
+        }
 
         public abstract InteractionTypes CanUse(IInteractionComponent interactor);
         public abstract InteractionTypes CanCombine(Ingredients ingredient);

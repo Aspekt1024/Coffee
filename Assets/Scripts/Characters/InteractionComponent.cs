@@ -88,6 +88,7 @@ namespace Coffee.Characters
             var currentTf = item.Transform;
             currentTf.SetParent(itemGrabPoint);
             currentTf.SetPositionAndRotation(itemGrabPoint.position, itemGrabPoint.rotation);
+            item.SetHeldState();
             return true;
         }
 
@@ -95,6 +96,7 @@ namespace Coffee.Characters
         {
             var item = CurrentItem;
             CurrentItem = null;
+            item?.SetPlacedState();
             return item;
         }
 
